@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /*
     1.  The user shall be able to store at least 100 inventory items
@@ -62,9 +63,9 @@ public class InventoryTracker extends Application {
     //Get products for list
     public static ObservableList<Product> getProducts(){
         ObservableList<Product> listOfProducts = FXCollections.observableArrayList();
-        listOfProducts.add(new Product("xbox","1234567890",430.00));
-        listOfProducts.add(new Product("dfs","1534241134",103.00));
-        listOfProducts.add(new Product("sdf","123451234",140.00));
+        listOfProducts.add(new Product("xbox","1234567890", BigDecimal.valueOf(430.00)));
+        listOfProducts.add(new Product("dfs","1534241134",BigDecimal.valueOf(23.00)));
+        listOfProducts.add(new Product("sdf","123451234",BigDecimal.valueOf(40.00)));
         return listOfProducts;
     }
 }

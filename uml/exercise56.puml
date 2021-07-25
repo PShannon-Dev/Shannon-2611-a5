@@ -36,8 +36,16 @@ class AddItemWindowController{
     'constructor for sceneManager
     AddItemWindowController(ProductModel, SceneManager)
 
+    'instances
+    -sceneManager
+    -ProductModel
+
+    -textField: name
+    -textField: serialNumber
+    -textField: value
+
     'add product through constructor using text field
-    addProduct(String, String, BigDecimal)
+     addProduct(String, String, BigDecimal)
 }
 
 'this may be removed if its possible to edit in tableview

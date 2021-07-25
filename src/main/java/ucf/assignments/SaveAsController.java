@@ -1,23 +1,18 @@
 package ucf.assignments;
 
-import javafx.fxml.Initializable;
-
-import javax.swing.*;
 import java.io.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 public class SaveAsController{
-    private ListModel listModel;
+    private ProductModel productModel;
     private SceneManager sceneManager;
 
 
 
     //contructor for scene manager
-    public SaveAsController(ListModel listModel, SceneManager sceneManager) {
-        this.listModel = listModel;
+    public SaveAsController(ProductModel productModel, SceneManager sceneManager) {
+        this.productModel = productModel;
         this.sceneManager = sceneManager;
     }
 

@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +12,10 @@ public class SceneManager {
     private Map<String, Scene> scenes = new HashMap<>();
 
     void load(){
-        ListModel listModel = new ListModel();
+        ProductModel productModel = new ProductModel();
 
-        InventoryTrackerController inventoryTrackerController = new InventoryTrackerController(listModel,this);
-        SaveAsController saveAsController = new SaveAsController(listModel, this);
+        InventoryTrackerController inventoryTrackerController = new InventoryTrackerController(productModel,this);
+        AddProductController addProductController = new AddProductController(productModel, this);
 
         Parent root;
 
@@ -29,17 +28,16 @@ public class SceneManager {
         }catch (IOException e){
             e.printStackTrace();
         }
-/*
-        loader = new FXMLLoader(getClass().getResource("SaveAs.fxml"));
-        loader.setController(saveAsController);
+
+        loader = new FXMLLoader(getClass().getResource("AddProduct.fxml"));
+        loader.setController(addProductController);
         try{
             root = loader.load();
-            scenes.put("SaveAs", new Scene(root));
-            saveAsController.openFileView();
+            scenes.put("AddProduct", new Scene(root));
         }catch (IOException e){
             e.printStackTrace();
         }
-*/
+
 
     }
 
