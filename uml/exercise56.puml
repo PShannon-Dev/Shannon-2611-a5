@@ -13,40 +13,48 @@ class SceneManager{
     getScene(String): Scene
 }
 
-class MainWindowController{
-    items: ItemModel
+class InventoryTrackerController{
+    items: ProductModel
 
-    MainWindowController(ItemModel, SceneManager)
+    'constructor for sceneManager
+    InventoryTrackerController(ProductModel, SceneManager)
 
+
+    'pass addItem scene to SceneManager
     addItemButtonClicked(EventHandler)
+
+    'might not be button, may just edit in table view
     editItemButtonClicked(EventHandler)
+
+    'remove selected item
     removeItemButtonClicked(EventHandler)
 
-    addItem(String, String, BigDecimal)
     editItem()
+    SaveAsClicked();
 }
 class AddItemWindowController{
+    'constructor for sceneManager
+    AddItemWindowController(ProductModel, SceneManager)
 
+    'add product through constructor using text field
+    addProduct(String, String, BigDecimal)
 }
 
+'this may be removed if its possible to edit in tableview
 class EditItemWindowController{
-
-}
-
-class RemoveItemWindowController{
 
 }
 
 class SearchItemWindowController{
 }
 
-class ItemModel{
+class ProductModel{
 
-    - ObservableList<Item>
+    - ObservableList<Product>
 
 }
 
-class Items{
+class Product{
     - name: SimpleStringProperty
     - serialNumber: SimpleStringProperty
     - value: SimpleDoubleProperty
@@ -65,16 +73,16 @@ class FileManager{
 }
 openjfx.org.Application <|-- InventoryTracker
 InventoryTracker -- SceneManager
-SceneManager -- MainWindowController
+SceneManager -- InventoryTrackerController
 SceneManager -- AddItemWindowController
 SceneManager -- EditItemWindowController
 SceneManager -- RemoveItemWindowController
 SceneManager -- SearchItemWindowController
-MainWindowController o-- ItemModel
-AddItemWindowController o-- ItemModel
-EditItemWindowController o-- ItemModel
-RemoveItemWindowController o-- ItemModel
-SearchItemWindowController o-- ItemModel
+MainWindowController o-- ProductModel
+AddItemWindowController o-- ProductModel
+EditItemWindowController o-- ProductModel
+RemoveItemWindowController o-- ProductModel
+SearchItemWindowController o-- ProductModel
 MainWindowController o-- FileManager
-ItemModel *-- Items
+ProductModel *-- Product
 @enduml

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" >
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#SaveAsOptionClicked" text="Save As..." />
+                  <MenuItem mnemonicParsing="false" onAction="#LoadListOptionClicked" text="Load..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" onAction="#CloseProgramOptionClicked" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Manage">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Add New Item..." />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About..." />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <right>
+      <HBox prefHeight="375.0" prefWidth="115.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Sort By:">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="5.0" />
+               </HBox.margin>
+            </MenuButton>
+         </children>
+      </HBox>
+   </right>
+   <center>
+      <TableView fx:id="ProductList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="serialNumCol" prefWidth="127.33331048488617" text="Serial Number" />
+          <TableColumn fx:id="productNameCol" prefWidth="244.66667938232422" text="Product Name" />
+            <TableColumn fx:id="valueCol" prefWidth="112.0" text="Value" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
