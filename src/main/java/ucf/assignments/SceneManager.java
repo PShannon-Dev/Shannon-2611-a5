@@ -16,6 +16,7 @@ public class SceneManager {
 
         InventoryTrackerController inventoryTrackerController = new InventoryTrackerController(productModel,this);
         AddProductController addProductController = new AddProductController(productModel, this);
+        DupErrorController dupErrorController = new DupErrorController(productModel,this);
 
         Parent root;
 
@@ -38,9 +39,19 @@ public class SceneManager {
             e.printStackTrace();
         }
 
-
+        loader = new FXMLLoader(getClass().getResource("DupSerialNumError.fxml"));
+        loader.setController(dupErrorController);
+        try {
+            root = loader.load();
+            scenes.put("DupError", new Scene(root));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
+    public void CloseScene(){
+
+    }
     //accessor to take in name, look up name, and return for use
     public Scene getScene(String name){
         return scenes.get(name);

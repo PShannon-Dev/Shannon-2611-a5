@@ -1,20 +1,20 @@
 ucf/assignments/Product.java
  ucf.assignments.Product
-ucf/assignments/AddProduct.java
- ucf.assignments.AddProduct
 ucf/assignments/InventoryTracker.java
  ucf.assignments.InventoryTracker
-ucf/assignments/SearchController.java
- ucf.assignments.SearchController
 ucf/assignments/ProductModel.java
  ucf.assignments.ProductModel
-ucf/assignments/FileManager.java
- ucf.assignments.FileManager
-ucf/assignments/SaveAsController.java
- ucf.assignments.SaveAsController
-ucf/assignments/InventoryTrackerController.java
- ucf.assignments.InventoryTrackerController
 ucf/assignments/SceneManager.java
  ucf.assignments.SceneManager
+ucf/assignments/DupErrorController.java
+ ucf.assignments.DupErrorController
+ucf/assignments/SaveAsController.java
+ ucf.assignments.SaveAsController
 ucf/assignments/AddProductController.java
  ucf.assignments.AddProductController
+ucf/assignments/InventoryTrackerController.java
+ ucf.assignments.InventoryTrackerController
+ucf/assignments/FileManager.java
+ ucf.assignments.FileManager
+ucf/assignments/AddProduct.java
+ ucf.assignments.AddProduct
