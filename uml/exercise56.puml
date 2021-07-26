@@ -20,6 +20,7 @@ class InventoryTrackerController{
     InventoryTrackerController(ProductModel, SceneManager)
 
 
+    'VBOX Right
     'pass addItem scene to SceneManager
     addItemButtonClicked(EventHandler)
 
@@ -31,6 +32,8 @@ class InventoryTrackerController{
 
     editItem()
     SaveAsClicked();
+
+    CloseProgramOptionClicked(EventHandler)
 }
 class AddItemWindowController{
     'constructor for sceneManager
@@ -75,6 +78,8 @@ class Product{
 }
 
 class FileManager{
+    -ProductModel
+
     saveAsCSV(filename: String, data,: String)
     saveAsJSON(filename: String, data,: String)
     saveAsHTML(filename: String, data,: String)

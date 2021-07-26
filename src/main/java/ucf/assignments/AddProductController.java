@@ -2,9 +2,9 @@ package ucf.assignments;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.math.BigDecimal;
 
 public class AddProductController {
@@ -14,11 +14,11 @@ public class AddProductController {
     private AddProduct addProduct;
 
     //textfields
-    /*
+
     @FXML private TextField SerialNumField;
     @FXML private TextField ValueField;
     @FXML private TextField NameField;
-*/
+
     public AddProductController(ProductModel productModel, SceneManager sceneManager) {
         this.sceneManager = sceneManager;
         this.productModel = productModel;

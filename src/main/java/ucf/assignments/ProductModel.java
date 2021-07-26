@@ -12,4 +12,8 @@ public class ProductModel {
     public void AddItem(Product newProduct){
         //add item to the array list
     }
+
+    public void RemoveItem(int Index){
+
+    }
 }

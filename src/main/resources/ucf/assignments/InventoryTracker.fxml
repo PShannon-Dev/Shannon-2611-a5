@@ -9,7 +9,9 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
@@ -24,11 +26,6 @@
               <MenuItem mnemonicParsing="false" onAction="#CloseProgramOptionClicked" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Manage">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#AddProduct" text="Add New Product..." />
-            </items>
-          </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About..." />
@@ -37,27 +34,24 @@
         </menus>
       </MenuBar>
    </top>
-   <center>
-      <TableView fx:id="ProductList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="serialNumCol" prefWidth="127.33331048488617" text="Serial Number" />
-          <TableColumn fx:id="productNameCol" prefWidth="244.66667938232422" text="Product Name" />
-            <TableColumn fx:id="valueCol" prefWidth="112.0" text="Value" />
-        </columns>
-      </TableView>
-   </center>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="375.0" prefWidth="107.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Sort By:">
+            <MenuButton fx:id="sortByDropdown" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Sort By:">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" onAction="#SortBySerialNum" text="Serial Number" />
+                <MenuItem mnemonicParsing="false" onAction="#SortByName" text="Product Name" />
+                  <MenuItem mnemonicParsing="false" onAction="#SortByValue" text="Product Value" />
               </items>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </MenuButton>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AddProduct" text="Add Product...">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#DeleteSelectedProduct" text="Delete Product">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -71,4 +65,32 @@
          </children>
       </VBox>
    </right>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefWidth="200.0">
+               <children>
+                  <TextField fx:id="searchText" prefHeight="25.0" prefWidth="229.0" promptText="🔍" />
+                  <MenuButton fx:id="searchByDropdown" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Search By:">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#SearchBySerialNum" text="Serial Number" />
+                        <MenuItem mnemonicParsing="false" onAction="#SearchByName" text="Product Name" />
+                        <MenuItem mnemonicParsing="false" onAction="#SearchByValue" text="Product Value" />
+                     </items>
+                  </MenuButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="ProductList" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="serialNumCol" prefWidth="127.33331048488617" text="Serial Number" />
+                <TableColumn fx:id="productNameCol" prefWidth="244.66667938232422" text="Product Name" />
+                  <TableColumn fx:id="valueCol" prefWidth="112.0" text="Value" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

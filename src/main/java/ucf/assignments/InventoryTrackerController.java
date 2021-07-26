@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -19,6 +20,9 @@ public class InventoryTrackerController{
 
     private SceneManager sceneManager;
     private ProductModel productModel;
+
+    @FXML
+    private TextField searchText;
 
     //column setup
     @FXML private TableColumn<Product, String> serialNumCol;
@@ -79,7 +83,9 @@ public class InventoryTrackerController{
     @FXML
     void SaveAsOptionClicked(ActionEvent event) {
         System.out.println("Save as");
+
     }
+
 
     public void createObservableList(){
 
@@ -96,13 +102,49 @@ public class InventoryTrackerController{
 
     @FXML
     void DeleteSelectedProduct(ActionEvent event) {
-
+        //get selected item
+        //call Product Model to remove item passing index as parameter
     }
 
     @FXML
     void EditSelectedProduct(ActionEvent event) {
+        //Open edit product scene
 
     }
+
+    //sort functionality
+    @FXML
+    void SortByName(ActionEvent event) {
+        //sorts by name column
+    }
+
+    @FXML
+    void SortBySerialNum(ActionEvent event) {
+        //sort by serial number column
+    }
+
+    @FXML
+    void SortByValue(ActionEvent event) {
+        //sort by value column
+    }
+
+    //Search functionality
+    @FXML
+    void SearchByName(ActionEvent event) {
+
+    }
+
+    @FXML
+    void SearchBySerialNum(ActionEvent event) {
+
+    }
+
+    @FXML
+    void SearchByValue(ActionEvent event) {
+
+    }
+
+
 
 
 

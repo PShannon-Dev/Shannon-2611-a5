@@ -8,7 +8,7 @@ public class SaveAsController{
     private ProductModel productModel;
     private SceneManager sceneManager;
 
-
+    //checkbox for which file type to save as
 
     //contructor for scene manager
     public SaveAsController(ProductModel productModel, SceneManager sceneManager) {
@@ -16,14 +16,8 @@ public class SaveAsController{
         this.sceneManager = sceneManager;
     }
 
+    //get textfield for directory
 
-    public void openFileView() {
-        File file;
-        Scanner fileIn = new Scanner(System.in);
-        int response;
-        JFileChooser chooser = new JFileChooser(".");
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+    //button press for save, using checkbox to debate
 
-        response = chooser.showOpenDialog(null);
-    }
 }
