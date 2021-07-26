@@ -17,9 +17,11 @@ public class SceneManager {
         InventoryTrackerController inventoryTrackerController = new InventoryTrackerController(productModel,this);
         AddProductController addProductController = new AddProductController(productModel, this);
         DupErrorController dupErrorController = new DupErrorController(productModel,this);
+        SaveAsController saveAsController = new SaveAsController(productModel,this);
 
         Parent root;
 
+        //main app window
         FXMLLoader loader = new FXMLLoader(getClass().getResource("InventoryTracker.fxml"));
         loader.setController(inventoryTrackerController);
 
@@ -30,6 +32,7 @@ public class SceneManager {
             e.printStackTrace();
         }
 
+        //add product window
         loader = new FXMLLoader(getClass().getResource("AddProduct.fxml"));
         loader.setController(addProductController);
         try{
@@ -39,6 +42,7 @@ public class SceneManager {
             e.printStackTrace();
         }
 
+        //duplicate error window
         loader = new FXMLLoader(getClass().getResource("DupSerialNumError.fxml"));
         loader.setController(dupErrorController);
         try {
@@ -47,11 +51,18 @@ public class SceneManager {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+        //Save As window
+        loader = new FXMLLoader(getClass().getResource("SaveAs.fxml"));
+        loader.setController(saveAsController);
+        try {
+            root = loader.load();
+            scenes.put("SaveAs", new Scene(root));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
-    public void CloseScene(){
-
-    }
     //accessor to take in name, look up name, and return for use
     public Scene getScene(String name){
         return scenes.get(name);

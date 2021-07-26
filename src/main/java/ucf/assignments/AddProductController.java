@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.io.Serial;
 import java.math.BigDecimal;
 
 public class AddProductController {
@@ -38,7 +36,7 @@ public class AddProductController {
         AddProduct addProduct = new AddProduct(productModel, sceneManager);
         Product tempProduct = addProduct.CreateNewProduct(newName, newSerialNum, newValue);
 
-        //if null don't add else add
+        //if null don't add, else add
         if(tempProduct == null)
             ;
         else

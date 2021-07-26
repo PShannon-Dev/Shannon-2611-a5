@@ -1,17 +1,13 @@
 package ucf.assignments;
 
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 public class AddProduct {
     private ProductModel productModel;
     private SceneManager sceneManager;
-
-    private String name;
-    private String serialNum;
-    private BigDecimal value;
 
     public AddProduct(ProductModel productModel, SceneManager sceneManager) {
         this.productModel = productModel;
@@ -31,6 +27,7 @@ public class AddProduct {
                     Stage stage = new Stage();
                     stage.setTitle("Duplicate Serial Number Error");
                     stage.setScene(sceneManager.getScene("DupError"));
+                    stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
                     errorFound = true;
                     break;

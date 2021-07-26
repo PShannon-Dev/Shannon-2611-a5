@@ -1,18 +1,21 @@
 package ucf.assignments;
 
 import javafx.application.Platform;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.InputMethodEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.BigDecimalStringConverter;
 
-import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.Scanner;
 
 public class InventoryTrackerController{
     @FXML
@@ -30,11 +33,55 @@ public class InventoryTrackerController{
     @FXML private TableColumn<Product, BigDecimal> valueCol;
 
 
+
     public InventoryTrackerController(ProductModel productModel, SceneManager sceneManager) {
         this.sceneManager = sceneManager;
         this.productModel = productModel;
     }
 
+    public void updateTableView(){
+        ProductList.setItems(productModel.createObservableList(productModel.getListOfProducts()));
+
+        serialNumCol.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
+        serialNumCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
+        valueCol.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
+
+        ProductList.getColumns().setAll(serialNumCol,productNameCol,valueCol);
+    }
+
+    @FXML
+    void search(InputMethodEvent event) {
+        FilteredList<Product> filteredSearch = new FilteredList<>(productModel.createObservableList(productModel.getListOfProducts()), b -> true);
+        searchText.textProperty().addListener((observable, oldValue, newValue) ->{
+            filteredSearch.setPredicate(Product -> {
+                //if empty, display all
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+
+                //compare serial number and name to text
+                String lowerCaseNewValue = newValue.toLowerCase();
+
+                if(Product.getName().toLowerCase().indexOf(lowerCaseNewValue) != -1)
+                    return true;
+                else if(Product.getSerialNumber().toLowerCase().indexOf(lowerCaseNewValue) != -1)
+                    return true;
+                else if(Product.getValue().toString().indexOf(lowerCaseNewValue) != -1)
+                    return true;
+                else
+                    return false;
+            });
+        });
+
+        SortedList<Product> sortedList = new SortedList<>(filteredSearch);
+
+        sortedList.comparatorProperty().bind(ProductList.comparatorProperty());
+
+        ProductList.setItems(sortedList);
+    }
     @FXML
     void CloseProgramOptionClicked(ActionEvent event) {
         //terminates program
@@ -43,52 +90,17 @@ public class InventoryTrackerController{
 
     @FXML
     void LoadListOptionClicked(ActionEvent event) {
-        File file;
-        Scanner fileIn = new Scanner(System.in);
-        int response;
-        JFileChooser chooser = new JFileChooser("C:");
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-        response = chooser.showOpenDialog(null);
-
-        if(response == JFileChooser.APPROVE_OPTION){
-            file = chooser.getSelectedFile();
-
-            try {
-                fileIn = new Scanner(file);
-
-                if(file.isFile()){
-                    while(fileIn.hasNext()){
-                        String name = fileIn.next();
-                        String serialNum = fileIn.next();
-                        Double value = fileIn.nextDouble();
-                        Product newProduct = new Product(name,serialNum,BigDecimal.valueOf(value));
-                        productModel.getListOfProducts().add(newProduct);
-                    }
-
-
-                }
-
-                else {
-                    System.out.println("Not a file");
-                }
-                //close file
-                fileIn.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        //clear list already opened
+        ProductList.getItems().clear();
+        FileManager fileManager = new FileManager(productModel);
+        fileManager.openFile();
+        updateTableView();
     }
 
     @FXML
     void SaveAsOptionClicked(ActionEvent event) {
-        System.out.println("Save as");
-
-    }
-
-
-    public void createObservableList(){
-
+        FileManager fileManager = new FileManager(productModel);
+        fileManager.saveAs();
     }
 
     @FXML
@@ -97,60 +109,15 @@ public class InventoryTrackerController{
         Stage stage = new Stage();
         stage.setTitle("Add Product");
         stage.setScene(sceneManager.getScene("AddProduct"));
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
     @FXML
     void DeleteSelectedProduct(ActionEvent event) {
-        //get selected item
-        //call Product Model to remove item passing index as parameter
+        productModel.RemoveItem(ProductList.getSelectionModel().getSelectedIndex());
     }
-
-    @FXML
-    void EditSelectedProduct(ActionEvent event) {
-        //Open edit product scene
-
-    }
-
-    //sort functionality
-    @FXML
-    void SortByName(ActionEvent event) {
-        //sorts by name column
-    }
-
-    @FXML
-    void SortBySerialNum(ActionEvent event) {
-        //sort by serial number column
-    }
-
-    @FXML
-    void SortByValue(ActionEvent event) {
-        //sort by value column
-    }
-
-    //Search functionality
-    @FXML
-    void SearchByName(ActionEvent event) {
-
-    }
-
-    @FXML
-    void SearchBySerialNum(ActionEvent event) {
-
-    }
-
-    @FXML
-    void SearchByValue(ActionEvent event) {
-
-    }
-
-
-
 
 
 }
-    /*  Stage stage = new Stage();
-    stage.setTitle("Save As...");
-    stage.setScene(sceneManager.getScene("SaveAs"));
-    stage.show(); */
 
