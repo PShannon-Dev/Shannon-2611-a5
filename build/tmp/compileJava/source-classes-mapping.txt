@@ -8,8 +8,6 @@ ucf/assignments/SceneManager.java
  ucf.assignments.SceneManager
 ucf/assignments/DupErrorController.java
  ucf.assignments.DupErrorController
-ucf/assignments/SaveAsController.java
- ucf.assignments.SaveAsController
 ucf/assignments/AddProductController.java
  ucf.assignments.AddProductController
 ucf/assignments/InventoryTrackerController.java

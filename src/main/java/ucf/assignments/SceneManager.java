@@ -1,5 +1,8 @@
 package ucf.assignments;
-
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Paul Shannon
+ */
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +20,6 @@ public class SceneManager {
         InventoryTrackerController inventoryTrackerController = new InventoryTrackerController(productModel,this);
         AddProductController addProductController = new AddProductController(productModel, this);
         DupErrorController dupErrorController = new DupErrorController(productModel,this);
-        SaveAsController saveAsController = new SaveAsController(productModel,this);
 
         Parent root;
 
@@ -28,6 +30,7 @@ public class SceneManager {
         try{
             root = loader.load();
             scenes.put("InventoryTracker", new Scene(root));
+            inventoryTrackerController.updateTableView();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -38,6 +41,7 @@ public class SceneManager {
         try{
             root = loader.load();
             scenes.put("AddProduct", new Scene(root));
+            inventoryTrackerController.updateTableView();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -48,16 +52,6 @@ public class SceneManager {
         try {
             root = loader.load();
             scenes.put("DupError", new Scene(root));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-        //Save As window
-        loader = new FXMLLoader(getClass().getResource("SaveAs.fxml"));
-        loader.setController(saveAsController);
-        try {
-            root = loader.load();
-            scenes.put("SaveAs", new Scene(root));
         }catch (IOException e){
             e.printStackTrace();
         }

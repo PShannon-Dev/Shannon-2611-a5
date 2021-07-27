@@ -1,5 +1,8 @@
 package ucf.assignments;
-
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Paul Shannon
+ */
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -24,7 +27,7 @@ public class ProductModel {
 
     public ObservableList<Product> createObservableList(ArrayList<Product> list){
         ObservableList<Product> obsListofProducts = FXCollections.observableArrayList();
-        obsListofProducts.addAll(ListOfProducts);
+        obsListofProducts.addAll(list);
         return obsListofProducts;
     }
 }

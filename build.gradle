@@ -17,6 +17,8 @@ dependencies {
     implementation 'org.json:json:20171018'
     implementation 'commons-io:commons-io:2.6'
     implementation group: 'com.univocity', name: 'univocity-parsers', version: '2.1.1'
+    implementation 'org.jsoup:jsoup:1.14.1'
+    implementation "org.testfx:testfx-junit5:4.0.16-alpha"
 
 }
 

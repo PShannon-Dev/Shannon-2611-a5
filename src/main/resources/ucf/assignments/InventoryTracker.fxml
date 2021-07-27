@@ -25,11 +25,6 @@
               <MenuItem mnemonicParsing="false" onAction="#CloseProgramOptionClicked" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About..." />
-            </items>
-          </Menu>
         </menus>
       </MenuBar>
    </top>
@@ -38,7 +33,7 @@
          <children>
             <HBox prefWidth="200.0">
                <children>
-                  <TextField fx:id="searchText" onInputMethodTextChanged="#search" prefHeight="25.0" prefWidth="304.0" promptText="🔍">
+                  <TextField fx:id="searchText" onKeyPressed="#search" prefHeight="25.0" prefWidth="304.0" promptText="🔍">
                      <HBox.margin>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </HBox.margin></TextField>
@@ -48,6 +43,11 @@
                      </HBox.margin>
                   </Button>
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#DeleteSelectedProduct" text="Delete Product">
+                     <HBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#RefreshTable" text="Refresh Table">
                      <HBox.margin>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </HBox.margin>

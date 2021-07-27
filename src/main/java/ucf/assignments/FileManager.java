@@ -1,12 +1,12 @@
 package ucf.assignments;
-
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Paul Shannon
+ */
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.univocity.parsers.common.ParsingContext;
-import com.univocity.parsers.common.processor.ObjectRowProcessor;
-import com.univocity.parsers.conversions.Conversions;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 import javafx.stage.FileChooser;
@@ -14,26 +14,31 @@ import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 
-import java.awt.*;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FileManager {
 
     private ProductModel productModel;
+    private String title;
     FileChooser fileChooser = new FileChooser();
 
-    public FileManager(ProductModel productModel) {
+    public FileManager(ProductModel productModel, String title) {
         this.productModel = productModel;
+        this.title = title;
     }
+
     private Stage stage = new Stage();
     public void saveAs(){
-        fileChooser.setTitle("Save As...");
+        fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON", "*.json"),
                 new FileChooser.ExtensionFilter("HTML","*.html"),
                 new FileChooser.ExtensionFilter("TSV", "*.txt"));
@@ -68,7 +73,6 @@ public class FileManager {
             }
         }
 
-        /*
         //saving as html
         else if(FilenameUtils.getExtension(file.getName()).equals("html"))
         {
@@ -80,8 +84,27 @@ public class FileManager {
                 }
             }
             try {
-                FileWriter filew = new FileWriter(file);
-            }catch (IOException e){
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write("<html>");
+
+                //write table
+                writer.write("<table style ='width:100%'>");
+
+                //create header
+                writer.write("<tr> <th>Serial Number</th><th>Product Name</th><th>Value</th><tr>");
+
+                //table rows
+                for(int i = 0; i < productModel.getListOfProducts().size(); i++){
+                    writer.write("<tr>");
+                    writer.write("<td>" + productModel.getListOfProducts().get(i).getSerialNumber() + "</td>");
+                    writer.write("<td>" + productModel.getListOfProducts().get(i).getName() + "</td>");
+                    writer.write("<td>" + productModel.getListOfProducts().get(i).getValue().toString() + "</td>");
+                    writer.write("</tr>");
+                }
+                writer.write("</table>");
+                writer.write("</html>");
+                writer.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -98,16 +121,19 @@ public class FileManager {
             }
             try {
                 FileWriter filew = new FileWriter(file);
+                for(int i = 0; i < productModel.getListOfProducts().size(); i++) {
+                    filew.write(productModel.getListOfProducts().get(i).getSerialNumber() + "\t" +
+                    productModel.getListOfProducts().get(i).getName() + "\t" +productModel.getListOfProducts().get(i).getValue() + "\n");
+                }
+                filew.close();
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
-
-         */
     }
 
     public void openFile(){
-        fileChooser.setTitle("File Selection...");
+        fileChooser.setTitle(title);
 
         File file = fileChooser.showOpenDialog(stage);
 
@@ -142,6 +168,52 @@ public class FileManager {
 
         //reads file if extension is html
         else if(FilenameUtils.getExtension(file.getName()).equals("html")) {
+            //use stringbuilder to append each new item to the string
+            StringBuilder productInfo = new StringBuilder();
+
+            if(file != null){
+                try{
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    String nextValue;
+
+                    //read in the html doc as a string to parse
+                    while((nextValue=br.readLine())!= null){
+                        productInfo.append(nextValue);
+                    }
+                    br.close();
+                    String htmlString = productInfo.toString();
+
+                    //parse string
+                    Document doc = Jsoup.parse(htmlString);
+
+                    //create element instances using tags
+                    Element table = doc.select("table").get(0);
+                    Elements rows = table.select("tr");
+
+                    ArrayList<String> elementText = new ArrayList<>(100);
+
+                    for(int i = 1; i < rows.size(); i++){
+                        Element row = rows.get(i);
+                        Elements columns = row.select("td");
+                        elementText.add(columns.text());
+                    }
+
+                    for(int j = 1; j < elementText.size(); j++) {
+                        //split array into subarray using split method
+                        String[] splitString = elementText.get(j).split(" ");
+
+                        String serialNum= splitString[0];
+                        String name = splitString[1];
+                        BigDecimal value = BigDecimal.valueOf(Double.valueOf(splitString[2]));
+                        productModel.AddProduct(new Product(name,serialNum,value));
+                    }
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         //reads file if extension is txt (tsv)

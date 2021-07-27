@@ -1,12 +1,12 @@
 package ucf.assignments;
-
-import javafx.application.Platform;
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Paul Shannon
+ */
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class DupErrorController {
     private ProductModel productModel;

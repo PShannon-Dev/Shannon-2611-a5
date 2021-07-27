@@ -1,5 +1,8 @@
 package ucf.assignments;
-
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Paul Shannon
+ */
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -39,9 +42,5 @@ public class AddProduct {
         } else {
             return null;
         }
-    }
-
-    public void addNewProduct(Product newProduct) {
-        productModel.AddProduct(newProduct);
     }
 }
